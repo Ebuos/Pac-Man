@@ -1,0 +1,119 @@
+func _physics_process(_delta: float) -> void:
+	var nav_direction: Vector2 = to_local(navigation_agent.get_next_path_position()).normalized()
+	if nav_direction.x > 1 and nav_direction.y > 1:
+		if nav_direction.x > nav_direction.y:
+			direction = Vector2.RIGHT
+		if nav_direction.y > nav_direction.x:
+			direction = Vector2.DOWN
+	elif nav_direction.x < 1 and nav_direction.y < 1:
+		if nav_direction.x < nav_direction.y:
+			direction = Vector2.LEFT
+		if nav_direction.y < nav_direction.x:
+			direction = Vector2.UP
+	elif nav_direction.x > 1 and nav_direction.y < 1:
+		if nav_direction.x > nav_direction.y * -1:
+			direction = Vector2.RIGHT
+		if nav_direction.y * -1 > nav_direction.x:
+			direction = Vector2.UP
+	elif nav_direction.x < 1 and nav_direction.y > 1:
+		if nav_direction.x * -1 > nav_direction.y:
+			direction = Vector2.LEFT
+		if nav_direction.y > nav_direction.x * -1:
+			direction = Vector2.DOWN
+	velocity = direction * speed
+	move_and_slide()
+
+func _physics_process(_delta: float) -> void:
+	var nav_direction: Vector2 = to_local(navigation_agent.get_next_path_position()) - position
+	if abs(nav_direction.x) > abs(nav_direction.y):
+		direction = Vector2.RIGHT if nav_direction.x > 0 else Vector2.LEFT
+	else:
+		direction = Vector2.UP if nav_direction.y > 0 else Vector2.DOWN
+	velocity = direction * speed
+	move_and_slide()
+
+extends CharacterBody2D
+
+var speed = 60.0
+var direction: Vector2 = Vector2.LEFT
+
+@export var target: Node2D
+@onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
+@onready var pac_man: CharacterBody2D = $"../../../Pac man"
+@onready var blinky_scatter_target: Area2D = $"../BlinkyScatterTarget"
+
+func _physics_process(_delta: float) -> void:
+	var nav_direction: Vector2 = (navigation_agent.get_next_path_position() - global_position)
+
+	# Nejprve zjisti, zda má cenu měnit směr (např. už jsme blízko cíli)
+	if nav_direction.length() < 1:
+		velocity = Vector2.ZERO
+		return
+
+	# Najdi hlavní osu (x nebo y)
+	if abs(nav_direction.x) > abs(nav_direction.y):
+		direction = Vector2.RIGHT if nav_direction.x > 0 else Vector2.LEFT
+	else:
+		direction = Vector2.UP if nav_direction.y > 0 else Vector2.DOWN
+
+	velocity = direction * speed
+	move_and_slide()
+
+func makepath() -> void:
+	navigation_agent.target_position = target.global_position
+
+func scatter_time():
+	blinky_scatter_target.monitoring = true
+	target = blinky_scatter_target
+	
+func chase_time():
+	target = pac_man
+	if blinky_scatter_target.monitoring:
+		blinky_scatter_target.set_deferred("monitoring", false)
+
+func pac_man_cought():
+	scatter_time()
+
+func _on_timer_timeout() -> void:
+	makepath()
+
+func _on_blinky_scater_target_body_entered(body: Node2D) -> void:
+	if body.is_in_group("Blinky"):
+		chase_time()
+
+extends CharacterBody2D
+
+var speed = 60.0
+
+@export var target: Node2D
+@onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
+@onready var pac_man: CharacterBody2D = $"../../../Pac man"
+@onready var blinky_scatter_target: Area2D = $"../BlinkyScatterTarget"
+
+func _physics_process(_delta: float) -> void:
+	var direction: Vector2 = to_local(navigation_agent.get_next_path_position()).normalized()
+	velocity = direction * speed
+	move_and_slide()
+	
+func makepath() -> void:
+	navigation_agent.target_position = target.global_position
+
+func scatter_time():
+	blinky_scatter_target.monitoring = true
+	target = blinky_scatter_target
+	
+func chase_time():
+	target = pac_man
+	if blinky_scatter_target.monitoring:
+		blinky_scatter_target.set_deferred("monitoring", false)
+
+func pac_man_cought():
+	scatter_time()
+
+func _on_timer_timeout() -> void:
+	makepath()
+
+func _on_blinky_scater_target_body_entered(body: Node2D) -> void:
+	if body.is_in_group("Blinky"):
+		chase_time()
+

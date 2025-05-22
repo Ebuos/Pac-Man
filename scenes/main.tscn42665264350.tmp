@@ -1,0 +1,621 @@
+[gd_scene load_steps=15 format=4 uid="uid://dcsxiaii2cd33"]
+
+[ext_resource type="PackedScene" uid="uid://bgihnhh1nx1w5" path="res://scenes/pac_man.tscn" id="1_0wfyh"]
+[ext_resource type="Texture2D" uid="uid://c2rjnh242rkm1" path="res://assets/sprites/walls.png" id="1_o5qli"]
+[ext_resource type="Script" uid="uid://d7wrfuqhw3ya" path="res://scripts/game_manager.gd" id="1_tefeu"]
+[ext_resource type="PackedScene" uid="uid://5q68qh0ejd1t" path="res://scenes/coin.tscn" id="3_o6xl0"]
+[ext_resource type="Texture2D" uid="uid://bmfc86iv1ywqy" path="res://assets/sprites/pickups.png" id="3_tefeu"]
+[ext_resource type="Script" uid="uid://dcd1sbuf6kfbn" path="res://scripts/portal_left.gd" id="4_jyhfs"]
+[ext_resource type="Script" uid="uid://ds5fh7it5u28g" path="res://scripts/portal_right.gd" id="5_tbgi4"]
+[ext_resource type="FontFile" uid="uid://tyn7ymbqek0d" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="6_o6xl0"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0wfyh"]
+texture = ExtResource("1_o5qli")
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:0/0 = 0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+4:0/0 = 0
+4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:1/0 = 0
+2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:1/0 = 0
+3:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+4:1/0 = 0
+4:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:2/0 = 0
+0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:2/0 = 0
+1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:2/0 = 0
+2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:2/0 = 0
+3:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+4:2/0 = 0
+4:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:3/0 = 0
+0:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:3/0 = 0
+1:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:3/0 = 0
+2:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+4:3/0 = 0
+4:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:4/0 = 0
+0:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:4/0 = 0
+1:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:4/0 = 0
+2:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="TileSet" id="TileSet_sugp2"]
+physics_layer_0/collision_layer = 1
+custom_data_layer_0/name = "Coin"
+custom_data_layer_0/type = 4
+sources/0 = SubResource("TileSetAtlasSource_0wfyh")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tipki"]
+texture = ExtResource("3_tefeu")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_85g3d"]
+sources/0 = SubResource("TileSetAtlasSource_tipki")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sugp2"]
+size = Vector2(20, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jyhfs"]
+size = Vector2(20, 40)
+
+[node name="Main" type="Node2D"]
+
+[node name="GameManager" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("1_tefeu")
+
+[node name="ScoreLabel" type="Label" parent="GameManager"]
+offset_left = -142.0
+offset_top = -309.0
+offset_right = -26.0
+offset_bottom = -293.0
+theme_override_fonts/font = ExtResource("6_o6xl0")
+text = "Score: 0"
+
+[node name="Walls" type="TileMapLayer" parent="."]
+z_index = 1
+z_as_relative = false
+position = Vector2(-3, -1)
+tile_map_data = PackedByteArray("AAAAAP7/AAABAAEAAAAAAP3/AAACAAEAAAAAAPz/AAADAAEAAAABAPz/AAACAAAAAAD///z/AAACAAAAAAD+//z/AAABAAAAAAACAPz/AAAAAAAAAAACAP7/AAABAAAAAAADAP7/AAACAAAAAAD9//7/AAACAAAAAAD+//7/AAAAAAAAAAD8//7/AAABAAAAAAD+/wAAAAABAAAAAAD//wAAAAACAAAAAAAAAAAAAAADAAEAAAABAAAAAAACAAAAAAACAAAAAAAAAAAAAAAAAAEAAAACAAEAAAAAAAIAAAABAAEAAAAEAAAAAAAAAAEAAAAEAAEAAAACAAEAAAAEAAIAAAAEAAEAAAADAAIAAAACAAAAAAACAAIAAAABAAAAAAAFAAIAAAACAAAAAAAGAAIAAAACAAAAAAAHAAIAAAAAAAAAAAAGAP7/AAAEAAIAAAAHAP7/AAAAAAAAAAAGAP//AAACAAEAAAAGAAAAAAABAAEAAAAIAAAAAAABAAAAAAAJAAAAAAAEAAAAAAAJAAEAAAACAAEAAAAJAAIAAAACAAEAAAAJAAMAAAACAAEAAAAJAAQAAAACAAIAAAAIAAQAAAACAAAAAAAHAAQAAAACAAAAAAAGAAQAAAACAAAAAAAFAAQAAAACAAAAAAAEAAQAAAACAAAAAAAJAP//AAACAAEAAAAJAP7/AAACAAEAAAD+/wIAAAAAAAAAAAD8/wIAAAAEAAEAAAD9/wIAAAACAAAAAAD8/wEAAAACAAEAAAD8/wAAAAAAAAEAAAD7/wIAAAACAAAAAAD6/wIAAAACAAAAAAD5/wIAAAABAAAAAAD6/wAAAAABAAEAAAD6////AAACAAEAAAD6//7/AAAEAAMAAAD5//7/AAABAAAAAAD4/wAAAAAAAAAAAAD3/wAAAAADAAAAAAD3/wEAAAACAAEAAAD3/wIAAAACAAEAAAD3/wMAAAACAAEAAAD3/wQAAAADAAIAAAD4/wQAAAACAAAAAAD5/wQAAAACAAAAAAD6/wQAAAACAAAAAAD7/wQAAAACAAAAAAD8/wQAAAACAAAAAAD9/wQAAAACAAAAAAD+/wQAAAACAAAAAAD//wQAAAACAAAAAAAAAAQAAAACAAAAAAABAAQAAAACAAAAAAACAAQAAAACAAAAAAADAAQAAAACAAAAAAD3////AAACAAEAAAD3//7/AAACAAEAAAD3//3/AAACAAEAAAD3//z/AAAEAAIAAAD4//z/AAACAAAAAAD5//z/AAACAAAAAAD6//z/AAACAAIAAAD6//v/AAACAAEAAAD6//r/AAACAAEAAAD8//z/AAABAAEAAAD8//v/AAACAAEAAAD8//r/AAACAAEAAAAEAPv/AAACAAEAAAAEAPr/AAACAAEAAAAEAPz/AAABAAEAAAAJAP3/AAACAAEAAAAJAPz/AAAEAAMAAAAIAPz/AAACAAAAAAAHAPz/AAACAAAAAAAGAPz/AAADAAIAAAAGAPv/AAACAAEAAAAGAPr/AAACAAEAAAAAAPr/AAACAAAAAAD///r/AAACAAAAAAABAPr/AAACAAAAAAACAPr/AAACAAIAAAD+//r/AAADAAIAAAD+//n/AAACAAEAAAD+//j/AAACAAEAAAD+//f/AAAEAAIAAAACAPf/AAAEAAMAAAACAPj/AAACAAEAAAACAPn/AAACAAEAAAD///f/AAACAAAAAAABAPf/AAACAAAAAAAHAPf/AAACAAAAAAAIAPf/AAACAAAAAAAJAPf/AAACAAAAAAD3//f/AAACAAAAAAD4//f/AAACAAAAAAD5//f/AAACAAAAAAD6//f/AAACAAIAAAAGAPf/AAADAAIAAAAGAPX/AAAEAAIAAAAGAPb/AAACAAEAAAD6//X/AAAEAAMAAAD6//b/AAACAAEAAAD8//f/AAABAAEAAAAEAPf/AAABAAEAAAD8//b/AAACAAEAAAD8//T/AAACAAEAAAAEAPb/AAACAAEAAAAEAPT/AAACAAEAAAAEAPX/AAAEAAAAAAD8//X/AAADAAAAAAD9//X/AAACAAAAAAD+//X/AAAAAAAAAAACAPX/AAABAAAAAAADAPX/AAACAAAAAAAAAPX/AAABAAEAAAAAAPT/AAACAAEAAAAAAPP/AAADAAEAAAABAPP/AAACAAAAAAD///P/AAACAAAAAAD+//P/AAABAAAAAAACAPP/AAAAAAAAAAD8//P/AAAAAAEAAAAEAPP/AAAAAAEAAAAIAPX/AAACAAAAAAD4//X/AAACAAAAAAD5//X/AAACAAAAAAAHAPX/AAACAAAAAAAJAPX/AAACAAIAAAD3//X/AAADAAIAAAAHAPn/AAACAAAAAAAIAPn/AAACAAAAAAAJAPn/AAACAAAAAAD5//n/AAACAAAAAAD4//n/AAACAAAAAAD3//n/AAACAAAAAAAGAPn/AAAEAAIAAAD6//n/AAAEAAMAAAD8//n/AAAAAAEAAAAEAPn/AAAAAAEAAAD3//P/AAACAAEAAAD3//T/AAACAAEAAAAJAPP/AAACAAEAAAAJAPT/AAACAAEAAAD6//P/AAAAAAAAAAAHAPP/AAAAAAAAAAD5//P/AAABAAAAAAAGAPP/AAABAAAAAAAJAPL/AAACAAEAAAD3//L/AAACAAEAAAD3//H/AAACAAEAAAAJAPH/AAACAAEAAAAHAPH/AAABAAMAAAD5//H/AAAAAAMAAAAGAPH/AAAAAAMAAAD6//H/AAABAAMAAAD6//D/AAABAAIAAAD5//D/AAAAAAIAAAAGAPD/AAAAAAIAAAAHAPD/AAABAAIAAAD8//D/AAAAAAIAAAD8//H/AAAAAAMAAAD9//D/AAAAAAQAAAD9//H/AAABAAQAAAADAPD/AAAAAAQAAAADAPH/AAABAAQAAAAEAPD/AAABAAIAAAAEAPH/AAABAAMAAAACAPD/AAAAAAIAAAACAPH/AAAAAAMAAAD+//D/AAABAAIAAAD+//H/AAABAAMAAAAAAPH/AAABAAEAAAAAAPD/AAACAAEAAAAAAO//AAACAAEAAAAAAO7/AAADAAEAAAD//+7/AAACAAAAAAD+/+7/AAACAAAAAAD9/+7/AAACAAAAAAD8/+7/AAACAAAAAAD7/+7/AAACAAAAAAD6/+7/AAACAAAAAAD5/+7/AAACAAAAAAD4/+7/AAACAAAAAAABAO7/AAACAAAAAAACAO7/AAACAAAAAAADAO7/AAACAAAAAAAEAO7/AAACAAAAAAAFAO7/AAACAAAAAAAGAO7/AAACAAAAAAAHAO7/AAACAAAAAAAIAO7/AAACAAAAAAAJAO7/AAAEAAMAAAD3/+7/AAAEAAIAAAD3/+//AAACAAEAAAD3//D/AAACAAEAAAAJAO//AAACAAEAAAAJAPD/AAACAAEAAAAEAP7/AAAAAAAAAAA=")
+tile_set = SubResource("TileSet_sugp2")
+
+[node name="Pac man" parent="." groups=["Pickups", "PortalBody"] instance=ExtResource("1_0wfyh")]
+z_index = 1
+position = Vector2(8, 0)
+default_position = Vector2(5, 0)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(8, -102)
+zoom = Vector2(2.4, 1.5)
+
+[node name="Pickups" type="Node" parent="."]
+
+[node name="Pickups" type="TileMapLayer" parent="Pickups"]
+visible = false
+position = Vector2(-3, -1)
+tile_map_data = PackedByteArray("AAD+/wMAAAAAAAAAAAD9/wMAAAAAAAAAAAD8/wMAAAAAAAAAAAD7/wMAAAAAAAAAAAD6/wMAAAAAAAAAAAD5/wMAAAAAAAAAAAD4/wMAAAAAAAAAAAD//wMAAAAAAAAAAAAAAAMAAAAAAAAAAAABAAMAAAAAAAAAAAACAAMAAAAAAAAAAAADAAMAAAAAAAAAAAAEAAMAAAAAAAAAAAAFAAMAAAAAAAAAAAAGAAMAAAAAAAAAAAAHAAMAAAAAAAAAAAAIAAMAAAAAAAAAAAAIAAIAAAAAAAAAAAAIAAEAAAAAAAAAAAAHAAEAAAAAAAAAAAAGAAEAAAAAAAAAAAAFAAEAAAAAAAAAAAACAAEAAAAAAAAAAAADAAEAAAAAAAAAAAABAAEAAAAAAAAAAAABAAIAAAAAAAAAAAD//wEAAAAAAAAAAAD//wIAAAAAAAAAAAD9/wEAAAAAAAAAAAD+/wEAAAAAAAAAAAD7/wEAAAAAAAAAAAD7/wAAAAAAAAAAAAD7////AAAAAAAAAAD6/wEAAAAAAAAAAAD5/wEAAAAAAAAAAAD4/wEAAAAAAAAAAAD4/wIAAAAAAAAAAAAIAP//AAABAAAAAAD4////AAABAAAAAAD5////AAAAAAAAAAD5/wAAAAAAAAAAAAD4//3/AAAAAAAAAAD4//7/AAAAAAAAAAD5//3/AAAAAAAAAAD6//3/AAAAAAAAAAD7//3/AAAAAAAAAAD7//7/AAAAAAAAAAD8////AAAAAAAAAAD9////AAAAAAAAAAD+////AAAAAAAAAAD/////AAAAAAAAAAABAP//AAAAAAAAAAACAP//AAAAAAAAAAADAP//AAAAAAAAAAAEAP//AAAAAAAAAAAFAP//AAAAAAAAAAADAAAAAAAAAAAAAAD///7/AAAAAAAAAAD///3/AAAAAAAAAAD+//3/AAAAAAAAAAD9//3/AAAAAAAAAAD8//3/AAAAAAAAAAD9/wAAAAAAAAAAAAAHAP//AAAAAAAAAAAHAAAAAAAAAAAAAAAIAP3/AAAAAAAAAAAIAP7/AAAAAAAAAAAHAP3/AAAAAAAAAAAGAP3/AAAAAAAAAAAFAP3/AAAAAAAAAAAFAP7/AAAAAAAAAAAEAP3/AAAAAAAAAAADAP3/AAAAAAAAAAACAP3/AAAAAAAAAAABAP3/AAAAAAAAAAABAP7/AAAAAAAAAAD7/+//AAAAAAAAAAD7//D/AAAAAAAAAAD7//H/AAAAAAAAAAD7//L/AAAAAAAAAAD7//P/AAAAAAAAAAD7//T/AAAAAAAAAAD7//X/AAAAAAAAAAD7//b/AAAAAAAAAAD7//f/AAAAAAAAAAD7//j/AAAAAAAAAAD7//n/AAAAAAAAAAD7//r/AAAAAAAAAAD7//v/AAAAAAAAAAD7//z/AAAAAAAAAAD6//T/AAAAAAAAAAD5//T/AAAAAAAAAAD4//T/AAAAAAAAAAD4//P/AAAAAAAAAAD4//L/AAAAAAAAAAD4//H/AAABAAAAAAD5//L/AAAAAAAAAAD6//L/AAAAAAAAAAD4/+//AAAAAAAAAAD4//D/AAAAAAAAAAD5/+//AAAAAAAAAAD6/+//AAAAAAAAAAD8/+//AAAAAAAAAAD9/+//AAAAAAAAAAD+/+//AAAAAAAAAAD//+//AAAAAAAAAAD///D/AAAAAAAAAAD///H/AAAAAAAAAAD///L/AAAAAAAAAAD+//L/AAAAAAAAAAD9//L/AAAAAAAAAAD8//L/AAAAAAAAAAD9//P/AAAAAAAAAAD9//T/AAAAAAAAAAD+//T/AAAAAAAAAAD///T/AAAAAAAAAAABAPT/AAAAAAAAAAACAPT/AAAAAAAAAAADAPT/AAAAAAAAAAAAAPL/AAAAAAAAAAABAPL/AAAAAAAAAAABAPH/AAAAAAAAAAABAPD/AAAAAAAAAAABAO//AAAAAAAAAAACAO//AAAAAAAAAAADAO//AAAAAAAAAAAEAO//AAAAAAAAAAAFAO//AAAAAAAAAAAFAPD/AAAAAAAAAAAFAPH/AAAAAAAAAAAFAPL/AAAAAAAAAAAEAPL/AAAAAAAAAAADAPL/AAAAAAAAAAACAPL/AAAAAAAAAAAGAPL/AAAAAAAAAAAHAPL/AAAAAAAAAAAIAPH/AAABAAAAAAAIAPD/AAAAAAAAAAAIAO//AAAAAAAAAAAHAO//AAAAAAAAAAAGAO//AAAAAAAAAAAIAPP/AAAAAAAAAAAHAPT/AAAAAAAAAAAIAPT/AAAAAAAAAAAGAPT/AAAAAAAAAAAFAPT/AAAAAAAAAAAFAPX/AAAAAAAAAAAFAPb/AAAAAAAAAAAFAPf/AAAAAAAAAAAFAPj/AAAAAAAAAAAFAPn/AAAAAAAAAAAFAPr/AAAAAAAAAAAFAPv/AAAAAAAAAAAFAPz/AAAAAAAAAAA=")
+tile_set = SubResource("TileSet_85g3d")
+
+[node name="Coins" type="Node" parent="Pickups"]
+
+[node name="Coin" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-75, 55)
+
+[node name="Coin2" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-59, 55)
+
+[node name="Coin3" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-43, 55)
+
+[node name="Coin4" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-27, 55)
+
+[node name="Coin5" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-11, 55)
+
+[node name="Coin6" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(5, 55)
+
+[node name="Coin7" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(21, 55)
+
+[node name="Coin8" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(37, 55)
+
+[node name="Coin9" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(53, 55)
+
+[node name="Coin10" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(69, 55)
+
+[node name="Coin11" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(85, 55)
+
+[node name="Coin12" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(101, 55)
+
+[node name="Coin13" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(117, 55)
+
+[node name="Coin14" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(133, 55)
+
+[node name="Coin15" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-91, 55)
+
+[node name="Coin16" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-107, 55)
+
+[node name="Coin17" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-123, 55)
+
+[node name="Coin18" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-123, 39)
+
+[node name="Coin19" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-123, 23)
+
+[node name="Coin20" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-107, 23)
+
+[node name="Coin21" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-91, 23)
+
+[node name="Coin22" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-75, 23)
+
+[node name="Coin23" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-43, 23)
+
+[node name="Coin24" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-27, 23)
+
+[node name="Coin25" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-11, 23)
+
+[node name="Coin26" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-11, 39)
+
+[node name="Coin27" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(21, 39)
+
+[node name="Coin28" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(21, 23)
+
+[node name="Coin29" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(37, 23)
+
+[node name="Coin30" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(53, 23)
+
+[node name="Coin31" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(85, 23)
+
+[node name="Coin32" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(101, 23)
+
+[node name="Coin33" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(117, 23)
+
+[node name="Coin34" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(133, 23)
+
+[node name="Coin35" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(133, 39)
+
+[node name="Coin36" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-75, 7)
+
+[node name="Coin37" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-75, -9)
+
+[node name="Coin38" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-59, -9)
+
+[node name="Coin39" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-43, -9)
+
+[node name="Coin40" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-27, -9)
+
+[node name="Coin41" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-11, -9)
+
+[node name="Coin42" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(133, -249)
+
+[node name="Coin43" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(21, -9)
+
+[node name="Coin44" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(37, -9)
+
+[node name="Coin45" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(53, -9)
+
+[node name="Coin46" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(53, 7)
+
+[node name="Coin47" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-43, 7)
+
+[node name="Coin48" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(69, -9)
+
+[node name="Coin49" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(85, -9)
+
+[node name="Coin50" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(85, 7)
+
+[node name="Coin51" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-75, -41)
+
+[node name="Coin52" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-59, -41)
+
+[node name="Coin53" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-43, -41)
+
+[node name="Coin54" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-27, -41)
+
+[node name="Coin55" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-11, -41)
+
+[node name="Coin56" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(21, -41)
+
+[node name="Coin57" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(37, -41)
+
+[node name="Coin58" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(53, -41)
+
+[node name="Coin59" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(69, -41)
+
+[node name="Coin60" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(85, -41)
+
+[node name="Coin61" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(101, -41)
+
+[node name="Coin62" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(117, -41)
+
+[node name="Coin63" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(133, -41)
+
+[node name="Coin64" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-123, -41)
+
+[node name="Coin65" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-107, -41)
+
+[node name="Coin66" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-91, -41)
+
+[node name="Coin67" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-75, -25)
+
+[node name="Coin68" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-123, -25)
+
+[node name="Coin69" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-107, -9)
+
+[node name="Coin70" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-107, 7)
+
+[node name="Coin71" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-11, -25)
+
+[node name="Coin72" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(21, -25)
+
+[node name="Coin73" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(85, -25)
+
+[node name="Coin74" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(133, -25)
+
+[node name="Coin75" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(117, -9)
+
+[node name="Coin76" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(117, 7)
+
+[node name="Coin77" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(85, -57)
+
+[node name="Coin78" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(85, -9)
+
+[node name="Coin79" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(85, -25)
+
+[node name="Coin80" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(85, 7)
+
+[node name="Coin81" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(85, -41)
+
+[node name="Coin82" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(85, -57)
+
+[node name="Coin83" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(85, 23)
+
+[node name="Coin84" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-75, -57)
+
+[node name="Coin85" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-75, -73)
+
+[node name="Coin86" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-75, -89)
+
+[node name="Coin87" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-75, -121)
+
+[node name="Coin88" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-75, -105)
+
+[node name="Coin89" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-75, -121)
+
+[node name="Coin90" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-75, -137)
+
+[node name="Coin91" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-75, -153)
+
+[node name="Coin92" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-75, -185)
+
+[node name="Coin93" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-75, -169)
+
+[node name="Coin94" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-75, -201)
+
+[node name="Coin95" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-75, -217)
+
+[node name="Coin96" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-75, -233)
+
+[node name="Coin97" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-75, -265)
+
+[node name="Coin98" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-75, -249)
+
+[node name="Coin99" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(85, -121)
+
+[node name="Coin100" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(85, -137)
+
+[node name="Coin101" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(85, -153)
+
+[node name="Coin102" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(85, -185)
+
+[node name="Coin103" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(85, -169)
+
+[node name="Coin104" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(85, -201)
+
+[node name="Coin105" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(85, -217)
+
+[node name="Coin106" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(85, -233)
+
+[node name="Coin107" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(85, -265)
+
+[node name="Coin108" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(85, -249)
+
+[node name="Coin109" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(85, -73)
+
+[node name="Coin110" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(85, -89)
+
+[node name="Coin111" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(85, -105)
+
+[node name="Coin112" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-91, -265)
+
+[node name="Coin113" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-107, -265)
+
+[node name="Coin114" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-123, -265)
+
+[node name="Coin115" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-123, -249)
+
+[node name="Coin116" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-59, -265)
+
+[node name="Coin117" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-43, -265)
+
+[node name="Coin118" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-27, -265)
+
+[node name="Coin119" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-11, -265)
+
+[node name="Coin120" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-11, -249)
+
+[node name="Coin121" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-11, -233)
+
+[node name="Coin122" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-11, -217)
+
+[node name="Coin123" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-27, -217)
+
+[node name="Coin124" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-43, -217)
+
+[node name="Coin125" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-59, -217)
+
+[node name="Coin126" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-91, -217)
+
+[node name="Coin127" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-107, -217)
+
+[node name="Coin128" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-123, -217)
+
+[node name="Coin129" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-123, -201)
+
+[node name="Coin130" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-123, -185)
+
+[node name="Coin131" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-107, -185)
+
+[node name="Coin132" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-91, -185)
+
+[node name="Coin133" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-43, -201)
+
+[node name="Coin134" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-43, -185)
+
+[node name="Coin135" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-27, -185)
+
+[node name="Coin136" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(-11, -185)
+
+[node name="Coin137" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(21, -185)
+
+[node name="Coin138" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(37, -185)
+
+[node name="Coin139" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(53, -185)
+
+[node name="Coin140" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(5, -217)
+
+[node name="Coin141" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(21, -217)
+
+[node name="Coin142" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(37, -217)
+
+[node name="Coin143" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(101, -217)
+
+[node name="Coin144" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(117, -217)
+
+[node name="Coin145" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(133, -217)
+
+[node name="Coin146" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(133, -201)
+
+[node name="Coin147" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(133, -185)
+
+[node name="Coin148" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(117, -185)
+
+[node name="Coin149" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(101, -185)
+
+[node name="Coin150" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(69, -217)
+
+[node name="Coin151" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(53, -217)
+
+[node name="Coin152" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(21, -233)
+
+[node name="Coin153" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(21, -249)
+
+[node name="Coin154" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(21, -265)
+
+[node name="Coin155" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(37, -265)
+
+[node name="Coin156" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(53, -265)
+
+[node name="Coin157" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(69, -265)
+
+[node name="Coin158" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(101, -265)
+
+[node name="Coin159" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(117, -265)
+
+[node name="Coin160" parent="Pickups/Coins" instance=ExtResource("3_o6xl0")]
+position = Vector2(133, -265)
+
+[node name="Labels" type="Node" parent="."]
+
+[node name="Portals" type="Node" parent="."]
+
+[node name="PortalLeft" type="Area2D" parent="Portals"]
+position = Vector2(-144, -121)
+script = ExtResource("4_jyhfs")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Portals/PortalLeft"]
+position = Vector2(-13, 0)
+shape = SubResource("RectangleShape2D_sugp2")
+
+[node name="PortalRight" type="Area2D" parent="Portals"]
+position = Vector2(154, -121)
+script = ExtResource("5_tbgi4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Portals/PortalRight"]
+position = Vector2(13, 0)
+shape = SubResource("RectangleShape2D_jyhfs")
+
+[connection signal="body_entered" from="Portals/PortalLeft" to="Portals/PortalLeft" method="_on_body_entered"]
+[connection signal="body_entered" from="Portals/PortalRight" to="Portals/PortalRight" method="_on_body_entered"]

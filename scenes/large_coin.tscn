@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://ljjh0o5iwhn4"]
+
+[ext_resource type="Script" uid="uid://bpu3oevreawod" path="res://scripts/large_coin.gd" id="1_g6hi2"]
+[ext_resource type="Texture2D" uid="uid://dgk04dcrtnnrn" path="res://assets/sprites/coin_large.png" id="1_kudls"]
+[ext_resource type="AudioStream" uid="uid://clkjwcuqjir67" path="res://assets/sounds/power_up-with_song.mp3" id="3_drc4l"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g6hi2"]
+size = Vector2(8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_drc4l"]
+atlas = ExtResource("1_kudls")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_64ryi"]
+atlas = ExtResource("1_kudls")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5qed6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_drc4l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_64ryi")
+}],
+"loop": true,
+"name": &"blinking",
+"speed": 4.0
+}]
+
+[node name="LargeCoin" type="Area2D"]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("1_g6hi2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_g6hi2")
+
+[node name="PowerUpSfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_drc4l")
+volume_db = -8.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_5qed6")
+animation = &"blinking"
+autoplay = "blinking"
+frame_progress = 0.0173661
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
