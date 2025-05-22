@@ -16,6 +16,11 @@ var speed = 60.0
 var frightened := false
 var direction := Vector2.ZERO
 var physics_enabled := false
+var default_speed := 35.0
+
+func set_speed(new_speed):
+	default_speed = new_speed
+	speed = default_speed
 
 func _ready() -> void:
 	animated_sprite.play("move_left")
@@ -39,11 +44,13 @@ func makepath() -> void:
 	navigation_agent.target_position = target.global_position
 
 func scatter_mode():
+	speed = default_speed
 	death_area.monitoring = false
 	target = pinky_scatter_target
 
 func chase_mode():
 	target = pinky_target
+	speed = default_speed
 
 func go_home_mode():
 	global_position = home_marker.global_position
@@ -54,13 +61,18 @@ func go_home_mode():
 func frightened_mode():
 	frightened = true
 	animated_sprite.play("frightened")
-	speed = 40
+	if game_manager.level == 1:
+		speed = 20.0
+	elif game_manager.level > 4 and game_manager.level < 19:
+		speed = 40.0
+	elif game_manager.level >= 19:
+		speed = 75.0
 	death_area.monitoring = true
 	target = pinky_scatter_target
 
 func after_frightened():
 	animated_sprite.play("move_left")
-	speed = 60
+	speed = default_speed
 	frightened = false
 	death_area.monitoring = false
 	chase_mode()

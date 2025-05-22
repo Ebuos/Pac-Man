@@ -32,12 +32,17 @@ extends Node
 @onready var final_score_label: Label = $EndMenu/ColorRect/VBoxContainer/FinalScoreLabel
 @onready var final_level_label: Label = $EndMenu/ColorRect/VBoxContainer/FinalLevelLabel
 @onready var final_time_label: Label = $EndMenu/ColorRect/VBoxContainer/FinalTimeLabel
+@onready var resume_button: Button = $EndMenu/ColorRect/ResumeButton
+@onready var appear_audio_sfx: AudioStreamPlayer = $AppearAudioSFX
+
+@export var load_scene: PackedScene
 
 var score: int = 0
 var collected_coins := 0
 var play_time := 0.0
 var plus_score: int
 var can_start := false
+var can_realy_start := false
 var scatters := 0
 var level := 1
 var current_fruit_animation: String
@@ -49,10 +54,16 @@ var melon_count := 0
 var galaxian_count := 0
 var bell_count := 0
 var key_count := 0
+var last_input := false
+var last_time
 
 func _ready() -> void:
+	pac_man.speed = 60.0
+	get_tree().call_group("Enemies", "set_speed", 35.0)
+	end_menu.hide()
 	game_start_sfx.play()
 	await get_tree().create_timer(4.25).timeout
+	can_realy_start = true
 	can_start = true
 	end_menu.hide()
 
@@ -64,6 +75,32 @@ func _process(delta: float) -> void:
 	level_label.text = "Level: " + str(level)
 	if collected_coins == 60 or collected_coins == 120:
 		fruit.appear()
+		appear_audio_sfx.play()
+	if end_menu.visible:
+		final_score_label.text = "Score: " + str(score)
+		final_level_label.text = "Level: " + str(level)
+		final_time_label.text = "Time: " + format_time(last_time)
+		score += plus_score
+		plus_score = 0
+		can_start = false
+		pac_man.velocity = Vector2.ZERO
+		pac_man.pause_timer()
+	if Input.is_action_just_pressed("display_menu"):
+		pac_man.velocity = Vector2.ZERO
+		if not last_input:
+			can_start = false
+			if not resume_button.visible and pac_man.life > 0:
+				resume_button.show()
+			end_menu.show()
+			last_time = play_time
+			last_input = true
+		else:
+			end_menu.hide()
+			if can_realy_start:
+				can_start = true
+			last_input = false
+			pac_man.resume_timer()
+
 
 func format_time(seconds: float) -> String:
 	var minutes = float(seconds) / 60
@@ -84,14 +121,17 @@ func new_level():
 	collected_coins = 0
 	scatters = 0
 	level += 1
+	if level > 4 and level < 19:
+		pac_man.speed = 80.0
+		get_tree().call_group("Enemies", "set_speed", 60.0)
+	elif level >= 19:
+		pac_man.speed = 100.0
+		get_tree().call_group("Enemies", "set_speed", 85.0)
 
 func final_menu():
-	score += plus_score
-	can_start = false
+	last_time = play_time
 	end_menu.show()
-	final_score_label.text = "Score: " + str(score)
-	final_level_label.text = "Level: " + str(level)
-	final_time_label.text = "Time: " + format_time(play_time)
+	resume_button.hide()
 
 func _on_score_timer_timeout() -> void:
 	score += plus_score
@@ -176,3 +216,8 @@ func _on_restart_button_button_down() -> void:
 
 func _on_exit_button_button_down() -> void:
 	get_tree().quit()
+
+func _on_resume_button_button_down() -> void:
+	last_input = false
+	end_menu.hide()
+	can_start = true

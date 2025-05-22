@@ -122,7 +122,7 @@ radius = 8.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_i0qxo"]
 radius = 53.0
 
-[node name="Pac man" type="CharacterBody2D"]
+[node name="Pac man" type="CharacterBody2D" groups=["Pickups", "PortalBody"]]
 collision_layer = 2
 collision_mask = 13
 script = ExtResource("1_lst2b")

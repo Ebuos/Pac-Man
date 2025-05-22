@@ -15,11 +15,15 @@ var speed = 60.0
 var frightened := false
 var direction := Vector2.ZERO
 var physics_enabled := false
+var default_speed := 35.0
+
+func set_speed(new_speed):
+	default_speed = new_speed
+	speed = default_speed
 
 func _ready() -> void:
 	animated_sprite.play("move_left")
 	death_area.monitoring = false
-	
 
 func _physics_process(_delta: float) -> void:
 	if game_manager.can_start:
@@ -40,9 +44,11 @@ func makepath() -> void:
 func scatter_mode():
 	death_area.monitoring = false
 	target = clyde_scatter_target
+	speed = default_speed
 
 func chase_mode():
 	target = pac_man
+	speed = default_speed
 
 func go_home_mode():
 	global_position = home_marker.global_position
@@ -53,13 +59,18 @@ func go_home_mode():
 func frightened_mode():
 	frightened = true
 	animated_sprite.play("frightened")
-	speed = 40
+	if game_manager.level == 1:
+		speed = 20.0
+	elif game_manager.level > 4 and game_manager.level < 19:
+		speed = 40.0
+	elif game_manager.level >= 19:
+		speed = 75.0
 	death_area.monitoring = true
 	target = clyde_scatter_target
 
 func after_frightened():
 	animated_sprite.play("move_left")
-	speed = 60
+	speed = default_speed
 	frightened = false
 	death_area.monitoring = false
 	chase_mode()
