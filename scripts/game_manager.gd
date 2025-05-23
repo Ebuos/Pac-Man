@@ -121,6 +121,7 @@ func new_level():
 	collected_coins = 0
 	scatters = 0
 	level += 1
+	get_tree().call_group("Enemies", "restart_position")
 	if level > 4 and level < 19:
 		pac_man.speed = 80.0
 		get_tree().call_group("Enemies", "set_speed", 60.0)

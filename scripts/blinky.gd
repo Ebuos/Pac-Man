@@ -14,6 +14,7 @@ var speed = 60.0
 var frightened := false
 var direction := Vector2.ZERO
 var default_speed := 35.0
+var default_position: Vector2
 
 func set_speed(new_speed):
 	default_speed = new_speed
@@ -24,6 +25,7 @@ func _ready() -> void:
 	target = blinky_scatter_target
 	death_area.monitoring = false
 	speed = default_speed
+	default_position = global_position
 
 func _physics_process(_delta: float) -> void:
 	if game_manager.can_start:
@@ -74,6 +76,11 @@ func after_frightened():
 	frightened = false
 	death_area.monitoring = false
 	chase_mode()
+
+func restart_position():
+	global_position = default_position
+	await get_tree().create_timer(1.0).timeout
+	scatter_mode()
 
 func _on_timer_timeout() -> void:
 	makepath()

@@ -17,6 +17,7 @@ var frightened := false
 var direction := Vector2.ZERO
 var physics_enabled := false
 var default_speed := 35.0
+var default_position: Vector2
 
 func set_speed(new_speed):
 	default_speed = new_speed
@@ -25,7 +26,7 @@ func set_speed(new_speed):
 func _ready() -> void:
 	animated_sprite.play("move_left")
 	death_area.monitoring = false
-	
+	default_position = global_position
 
 func _physics_process(_delta: float) -> void:
 	if game_manager.can_start:
@@ -77,6 +78,12 @@ func after_frightened():
 	death_area.monitoring = false
 	chase_mode()
 
+func restart_position():
+	global_position = default_position
+	timer_2.start(4.0)
+	physics_enabled = false
+	scatter_mode()
+
 func _on_timer_timeout() -> void:
 	makepath()
 
@@ -91,7 +98,7 @@ func _on_home_target_body_entered(body: Node2D) -> void:
 
 func _on_timer_2_timeout() -> void:
 	home_target.monitoring = true
-	physics_enabled= true
+	physics_enabled = true
 
 func _on_pinky_scatter_target_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Pinky"):

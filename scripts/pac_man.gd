@@ -92,8 +92,8 @@ func _on_caughting_area_body_entered(body: Node2D) -> void:
 			dying_sfx.play()
 			if death_animated_sprite.is_playing():
 				game_manager.can_start = false
-			body.scatter_mode()
 			velocity = Vector2.ZERO
+			get_tree().call_group("Enemies", "restart_position")
 			global_position = default_position
 			await get_tree().create_timer(2).timeout
 			game_manager.can_start = true

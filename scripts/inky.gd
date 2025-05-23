@@ -17,6 +17,7 @@ var frightened := false
 var direction := Vector2.ZERO
 var physics_enabled := false
 var default_speed := 35.0
+var default_position: Vector2
 
 func set_speed(new_speed):
 	default_speed = new_speed
@@ -25,7 +26,7 @@ func set_speed(new_speed):
 func _ready() -> void:
 	animated_sprite.play("move_left")
 	death_area.monitoring = false
-	
+	default_position = global_position
 
 func _physics_process(_delta: float) -> void:
 	if game_manager.can_start:
@@ -76,6 +77,12 @@ func after_frightened():
 	frightened = false
 	death_area.monitoring = false
 	chase_mode()
+
+func restart_position():
+	global_position = default_position
+	timer_2.start(6.0)
+	physics_enabled = false
+	scatter_mode()
 
 func _on_timer_timeout() -> void:
 	makepath()
