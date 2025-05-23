@@ -11,6 +11,11 @@ extends Control
 @export var splash_screen1: TextureRect
 @export var splash_screen2: TextureRect
 
+@warning_ignore("unused_parameter")
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("skip_animation"):
+		get_tree().change_scene_to_packed(load_scene)
+
 func fade() -> void:
 	splash_screen1.modulate.a = 0.0
 	splash_screen2.modulate.a = 0.0

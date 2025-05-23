@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://b5ufxpgtb6ye"]
+[gd_scene load_steps=5 format=3 uid="uid://b5ufxpgtb6ye"]
 
 [ext_resource type="Script" uid="uid://dlta5o7sn2vq2" path="res://scripts/main_menu.gd" id="1_ekxnf"]
-[ext_resource type="VideoStream" uid="uid://dv1dm1gcr2iks" path="res://video.ogv" id="1_l6cm7"]
+[ext_resource type="VideoStream" uid="uid://ccf58n6y2qcxy" path="res://video.ogv" id="1_l6cm7"]
+[ext_resource type="AudioStream" uid="uid://bcimxs5qnd7o" path="res://assets/sounds/time_for_adventure.mp3" id="3_bqqt6"]
+[ext_resource type="FontFile" uid="uid://tyn7ymbqek0d" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="3_wu84c"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -14,10 +16,80 @@ script = ExtResource("1_ekxnf")
 
 [node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+scale = Vector2(0.67, 0.67)
 stream = ExtResource("1_l6cm7")
+volume_db = -80.0
 autoplay = true
 expand = true
 
+[node name="ColorRect" type="ColorRect" parent="VideoStreamPlayer"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -408.0
+offset_top = -355.0
+offset_right = 408.0
+offset_bottom = 355.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.211765, 0.113725, 0.878431, 0.54902)
+
+[node name="Label" type="Label" parent="VideoStreamPlayer/ColorRect"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -384.0
+offset_top = 19.4776
+offset_right = 384.0
+offset_bottom = 150.478
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("3_wu84c")
+theme_override_font_sizes/font_size = 64
+text = "Welcome to my
+Pac-Man"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VideoStreamPlayer/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.298
+offset_top = -74.0
+offset_right = 11.7015
+offset_bottom = 74.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="StartButton" type="Button" parent="VideoStreamPlayer/ColorRect/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_fonts/font = ExtResource("3_wu84c")
+theme_override_font_sizes/font_size = 64
+text = "Start"
+
+[node name="ExitButton" type="Button" parent="VideoStreamPlayer/ColorRect/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_wu84c")
+theme_override_font_sizes/font_size = 64
+text = "Exit"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_bqqt6")
+volume_db = -8.0
+autoplay = true
+
 [connection signal="finished" from="VideoStreamPlayer" to="." method="_on_video_stream_player_finished"]
+[connection signal="button_down" from="VideoStreamPlayer/ColorRect/VBoxContainer/StartButton" to="." method="_on_start_button_button_down"]
+[connection signal="button_down" from="VideoStreamPlayer/ColorRect/VBoxContainer/ExitButton" to="." method="_on_exit_button_button_down"]
