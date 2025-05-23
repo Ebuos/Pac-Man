@@ -18,7 +18,7 @@ boot_splash/show_image=false
 boot_splash/use_filter=false
 boot_splash/image="uid://d4nuqhe2l06pr"
 config/icon="uid://dxxvyowebii1g"
-config/windows_native_icon="res://pac-man-icon256.ico"
+config/windows_native_icon="res://pac-man-icon.ico"
 
 [display]
 

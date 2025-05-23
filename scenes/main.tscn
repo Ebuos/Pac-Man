@@ -443,7 +443,6 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="EndMenu" type="Control" parent="GameManager"]
-visible = false
 z_index = 4
 layout_mode = 3
 anchors_preset = 0
@@ -475,7 +474,7 @@ offset_bottom = 47.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("6_o6xl0")
-text = "Restart"
+text = "Menu"
 
 [node name="ResumeButton" type="Button" parent="GameManager/EndMenu/ColorRect"]
 layout_mode = 1

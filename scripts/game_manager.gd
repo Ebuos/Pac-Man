@@ -212,7 +212,7 @@ func display_fruit():
 		plus_score += 5000
 
 func _on_restart_button_button_down() -> void:
-	get_tree().reload_current_scene()
+	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
 
 func _on_exit_button_button_down() -> void:
 	get_tree().quit()
@@ -220,4 +220,5 @@ func _on_exit_button_button_down() -> void:
 func _on_resume_button_button_down() -> void:
 	last_input = false
 	end_menu.hide()
-	can_start = true
+	if can_realy_start:
+		can_start = true
