@@ -11,6 +11,9 @@ extends Control
 @export var splash_screen1: TextureRect
 @export var splash_screen2: TextureRect
 
+var stretch_scale := 1.3
+var screen_size = DisplayServer.screen_get_size()
+
 @warning_ignore("unused_parameter")
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("skip_animation"):
@@ -37,3 +40,8 @@ func _ready() -> void:
 	fade()
 	await get_tree().create_timer(3.5).timeout
 	audio_stream_player.play()
+	if screen_size == Vector2(1920, 1080):
+		stretch_scale = 1.5
+	elif screen_size == Vector2(1600,900):
+		stretch_scale = 1.3
+	ProjectSettings.set_setting("display/window/stretch/scale", stretch_scale)
