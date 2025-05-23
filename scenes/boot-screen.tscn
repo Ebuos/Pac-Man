@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cf310c22maryv" path="res://pac-man-video1.png" id="1_grn7d"]
 [ext_resource type="Script" uid="uid://beg8vs004twr6" path="res://scripts/boot_screen.gd" id="1_o7c61"]
-[ext_resource type="PackedScene" uid="uid://dcsxiaii2cd33" path="res://scenes/main.tscn" id="2_8hyhe"]
+[ext_resource type="PackedScene" uid="uid://b5ufxpgtb6ye" path="res://scenes/main_menu.tscn" id="2_8hyhe"]
 [ext_resource type="Texture2D" uid="uid://brcfuiykrgyvu" path="res://pac-man-video2.png" id="2_o7c61"]
 [ext_resource type="AudioStream" uid="uid://csfdpinhx7bor" path="res://assets/sounds/power_up.mp3" id="4_7a8ke"]
 

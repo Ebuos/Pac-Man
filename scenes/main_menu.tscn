@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://b5ufxpgtb6ye"]
+
+[ext_resource type="Script" uid="uid://dlta5o7sn2vq2" path="res://scripts/main_menu.gd" id="1_ekxnf"]
+[ext_resource type="VideoStream" uid="uid://dv1dm1gcr2iks" path="res://video.ogv" id="1_l6cm7"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ekxnf")
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+stream = ExtResource("1_l6cm7")
+autoplay = true
+expand = true
+
+[connection signal="finished" from="VideoStreamPlayer" to="." method="_on_video_stream_player_finished"]
