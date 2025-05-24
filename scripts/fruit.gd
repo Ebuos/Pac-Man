@@ -3,7 +3,7 @@ extends Area2D
 @onready var game_manager: Node = %GameManager
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
-
+#AnimationMixer (at: fruit.tscn): 'cherry', Value Track: 'AnimatedSprite2D:animation' blends String types. This is an experimental algorithm.
 func appear():
 	if game_manager.level == 1:
 		animation_player.play("cherry")
